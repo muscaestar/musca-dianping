@@ -16,7 +16,7 @@ public enum EmBusinessError {
 
     // 20000 - 用户相关错误
     REGISTER_DUP_FAIL(20001, "用户已存在"),
-    ;
+    LOGIN_FAIL(20002, "手机号或密码不正确");
 
 
     private Integer errCode;

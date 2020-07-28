@@ -67,4 +67,14 @@ public class UserController {
         UserModel savedUserModel = userService.register(userModel);
         return CommonRes.create(savedUserModel);
     }
+
+    @RequestMapping("/login")
+    @ResponseBody
+    public CommonRes login(@Valid @RequestBody LoginReq loginReq, BindingResult bindingResult) throws BusinessException, NoSuchAlgorithmException {
+        if (bindingResult.hasErrors()) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, CommonUtil.processErrString(bindingResult));
+        }
+        UserModel userModel = userService.login(loginReq.getTelephone(), loginReq.getPassword());
+        return CommonRes.create(userModel);
+    }
 }

@@ -11,6 +11,7 @@ import xyz.muscaestar.muscadianping.dao.UserModelMapper;
 import xyz.muscaestar.muscadianping.model.UserModel;
 import xyz.muscaestar.muscadianping.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -24,8 +25,12 @@ import java.util.Date;
 @Service
 public class UserServiceImpl implements UserService {
 
+    public static final String CURRENT_USER_SESSION = "CurrentUserSession";
     @Autowired
     UserModelMapper userModelMapper;
+
+    @Autowired
+    HttpServletRequest httpServletRequest;
 
     @Override
     public UserModel getUserById(Integer id) {
@@ -48,6 +53,17 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(EmBusinessError.REGISTER_DUP_FAIL);
         }
         return getUserById(userModel.getId());
+    }
+
+    @Override
+    public UserModel login(String telephone, String password) throws NoSuchAlgorithmException, BusinessException {
+        UserModel userModel = userModelMapper.selectByTelephonePassword(telephone, encodeByMD5(password));
+        if (userModel == null) {
+            throw new BusinessException(EmBusinessError.LOGIN_FAIL);
+        }
+        httpServletRequest.getSession().setAttribute(CURRENT_USER_SESSION, userModel);
+
+        return userModel;
     }
 
     private String encodeByMD5(String str) throws NoSuchAlgorithmException {
