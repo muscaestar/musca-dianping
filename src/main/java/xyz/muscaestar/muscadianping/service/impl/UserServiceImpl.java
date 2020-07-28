@@ -11,7 +11,6 @@ import xyz.muscaestar.muscadianping.dao.UserModelMapper;
 import xyz.muscaestar.muscadianping.model.UserModel;
 import xyz.muscaestar.muscadianping.service.UserService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -25,12 +24,8 @@ import java.util.Date;
 @Service
 public class UserServiceImpl implements UserService {
 
-    public static final String CURRENT_USER_SESSION = "CurrentUserSession";
     @Autowired
     UserModelMapper userModelMapper;
-
-    @Autowired
-    HttpServletRequest httpServletRequest;
 
     @Override
     public UserModel getUserById(Integer id) {
@@ -61,7 +56,6 @@ public class UserServiceImpl implements UserService {
         if (userModel == null) {
             throw new BusinessException(EmBusinessError.LOGIN_FAIL);
         }
-        httpServletRequest.getSession().setAttribute(CURRENT_USER_SESSION, userModel);
 
         return userModel;
     }

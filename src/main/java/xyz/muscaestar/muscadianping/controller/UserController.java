@@ -12,6 +12,7 @@ import xyz.muscaestar.muscadianping.common.*;
 import xyz.muscaestar.muscadianping.model.UserModel;
 import xyz.muscaestar.muscadianping.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.NoSuchAlgorithmException;
 
@@ -23,6 +24,10 @@ import java.security.NoSuchAlgorithmException;
 @Controller("/user")
 @RequestMapping("/user")
 public class UserController {
+    public static final String CURRENT_USER_SESSION = "CurrentUserSession";
+
+    @Autowired
+    HttpServletRequest httpServletRequest;
 
     @Autowired
     UserService userService;
@@ -75,6 +80,21 @@ public class UserController {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, CommonUtil.processErrString(bindingResult));
         }
         UserModel userModel = userService.login(loginReq.getTelephone(), loginReq.getPassword());
+        httpServletRequest.getSession().setAttribute(CURRENT_USER_SESSION, userModel);
+        return CommonRes.create(userModel);
+    }
+
+    @RequestMapping("/logout")
+    @ResponseBody
+    public CommonRes logout() {
+        httpServletRequest.getSession().invalidate();
+        return CommonRes.create(null);
+    }
+
+    @RequestMapping("/getcurrentuser")
+    @ResponseBody
+    public CommonRes getCurrentUser() {
+        UserModel userModel = (UserModel) httpServletRequest.getSession().getAttribute(CURRENT_USER_SESSION);
         return CommonRes.create(userModel);
     }
 }
