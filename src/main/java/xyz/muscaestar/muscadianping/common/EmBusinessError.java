@@ -8,7 +8,9 @@ package xyz.muscaestar.muscadianping.common;
 public enum EmBusinessError {
     // 10000 - 通用错误信息
     OBJECT_NOT_FOUND(10001, "找不到请求对象"),
-    UNKNOWN_ERROR(10002, "未知错误"),;
+    UNKNOWN_ERROR(10002, "未知错误"),
+    HANDLER_NOT_FOUND(10003, "找不到执行路径"),
+    BIND_EXCEPTION_ERROR(10004, "请求参数错误"),;
 
 
     private Integer errCode;
