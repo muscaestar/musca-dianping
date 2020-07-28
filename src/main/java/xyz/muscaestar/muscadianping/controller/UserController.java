@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import xyz.muscaestar.muscadianping.common.BusinessException;
 import xyz.muscaestar.muscadianping.common.CommonRes;
 import xyz.muscaestar.muscadianping.common.EmBusinessError;
@@ -27,6 +28,14 @@ public class UserController {
     @ResponseBody
     public String test() {
         return "test";
+    }
+
+
+    @RequestMapping("/thymeleaf")
+    public ModelAndView testThymeleaf() {
+        ModelAndView modelAndView = new ModelAndView("test_temp.html");
+        modelAndView.addObject("name", "Name Value");
+        return modelAndView;
     }
 
     @RequestMapping("/get")
