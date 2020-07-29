@@ -41,7 +41,7 @@ public class UserController {
 
     @RequestMapping("/thymeleaf")
     public ModelAndView testThymeleaf() {
-        ModelAndView modelAndView = new ModelAndView("test_temp.html");
+        ModelAndView modelAndView = new ModelAndView("/test_temp");
         modelAndView.addObject("name", "Name Value");
         return modelAndView;
     }

@@ -52,4 +52,5 @@ public interface UserModelMapper {
      */
     int updateByPrimaryKey(UserModel record);
 
+    Integer countAllUser();
 }
