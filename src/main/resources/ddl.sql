@@ -12,3 +12,15 @@ create table table_name
     constraint table_name_telephone_uindex
         unique (telephone)
 );
+
+-- auto-generated definition
+create table seller
+(
+    id            int auto_increment
+        primary key,
+    name          varchar(80)   default ''                not null,
+    created_at    datetime      default CURRENT_TIMESTAMP not null,
+    updated_at    datetime      default CURRENT_TIMESTAMP not null,
+    remark_score  decimal(2, 1) default 0.0               not null,
+    disabled_flag int           default 0                 not null
+);

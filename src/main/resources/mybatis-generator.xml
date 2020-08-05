@@ -27,7 +27,7 @@
         </javaClientGenerator>
 
 
-        <table tableName="user" domainObjectName="UserModel"
+        <table tableName="seller" domainObjectName="SellerModel"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
